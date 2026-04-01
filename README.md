@@ -20,4 +20,4 @@
 
 ***RCM device disconnected***
 
-***but it doesnt have rebooted , only disconnected!***
+***( but it doesnt have rebooted , only disconnected! )***
