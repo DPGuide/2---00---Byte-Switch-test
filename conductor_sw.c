@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <string.h>
-
-// WICHTIG: Beides auf 32/33 synchronisiert
 #define BLOCK_SIZE 32
 #define SHM_SIZE 33
 #define SHM_NAME "Local\\MyCustomProtocol"
