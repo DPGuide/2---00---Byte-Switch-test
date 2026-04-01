@@ -1,23 +1,18 @@
-***Preset "PAYLOAD_FILE" set to : C:\Users\.........\blackbox.bin***
++++TegraRcmSmash (32bit) 1.2.1-3 by rajkosto+++
 
-***Invoking TegraRcmSmash.exe with args : "C:\Users\.........\blackbox.bin"***
++++Opened USB device path \\?\usb#vid_0955&pid_7321#5&521a615&0&7#{aa0dbd45-3117-f331-5c49-76bf65225042}+++
 
-***TegraRcmSmash (32bit) 1.2.1-3 by rajkosto***
++++RCM Device with id 800301170000000C4188506401101062 initialized successfully!+++
 
-***Opened USB device path \\?\usb#vid_0955&pid_7321#5&521a615&0&7#{aa0dbd45-3117-f331-5c49-76bf65225042}***
++++Uploading payload (mezzo size: 92, user size: 117000, total size: 183216, total padded size: 184320)...+++
 
-***RCM Device with id 800301170000000C4188506401101062 initialized successfully!***
++++Smashing the stack!+++
 
-***Uploading payload (mezzo size: 92, user size: 260000, total size: 326216, total padded size: 196608)...***
++++Smashed the stack with a 0x0000 byte SETUP request!+++
 
-***Switched to high buffer***
++++000 byte SETUP request!+++
 
-***Smashing the stack!***
++++Payload successfully injected+++
 
-***Smashed the stack with a 0x7000 byte SETUP request!***
 
-***Payload successfully injected***
-
-***RCM device disconnected***
-
-***( but it doesnt have rebooted , only disconnected! )***
+( yes its a patched switch, normaly it musst crashed but not with my 2 -00- byte [26 blocksize] system
